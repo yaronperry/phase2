@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: flask-periodic-task
+spec:
+  schedule: "*/5 * * * *"  # Every 5 minutes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: flask-task
+              image: yaronperry/flask-app:2
+              command: ["bash", "-c", "echo Hello from cron"]
+          restartPolicy: OnFailure
+
